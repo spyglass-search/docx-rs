@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -19,11 +19,11 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:docDefaults")]
+#[xml(tag = "docDefaults")]
 pub struct DefaultStyle<'a> {
-    #[xml(default, child = "w:rPrDefault")]
+    #[xml(default, child = "rPrDefault")]
     pub character: DefaultCharacterProperty<'a>,
-    #[xml(default, child = "w:pPrDefault")]
+    #[xml(default, child = "pPrDefault")]
     pub paragraph: DefaultParagraphProperty<'a>,
 }
 
@@ -35,10 +35,10 @@ impl<'a> DefaultStyle<'a> {
 /// Default Character Properties
 #[derive(Default, Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:rPrDefault")]
+#[xml(tag = "rPrDefault")]
 pub struct DefaultCharacterProperty<'a> {
     /// character properties
-    #[xml(default, child = "w:rPr")]
+    #[xml(default, child = "rPr")]
     pub inner: CharacterProperty<'a>,
 }
 
@@ -51,10 +51,10 @@ impl<'a, T: Into<CharacterProperty<'a>>> From<T> for DefaultCharacterProperty<'a
 /// Default Paragraph Properties
 #[derive(Default, Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:pPrDefault")]
+#[xml(tag = "pPrDefault")]
 pub struct DefaultParagraphProperty<'a> {
     /// paragraph properties
-    #[xml(default, child = "w:pPr")]
+    #[xml(default, child = "pPr")]
     pub inner: ParagraphProperty<'a>,
 }
 
@@ -67,5 +67,5 @@ impl<'a, T: Into<ParagraphProperty<'a>>> From<T> for DefaultParagraphProperty<'a
 __xml_test_suites!(
     DefaultStyle,
     DefaultStyle::default(),
-    r#"<w:docDefaults><w:rPrDefault><w:rPr/></w:rPrDefault><w:pPrDefault><w:pPr/></w:pPrDefault></w:docDefaults>"#,
+    r#"<docDefaults><rPrDefault><rPr/></rPrDefault><pPrDefault><pPr/></pPrDefault></docDefaults>"#,
 );

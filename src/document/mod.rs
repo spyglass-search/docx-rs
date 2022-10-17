@@ -21,8 +21,8 @@ pub use self::{
     r#break::*, run::*, table::*, table::*, table_cell::*, table_grid::*, table_row::*, text::*,
 };
 
+use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 use std::io::Write;
-use strong_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 
 use crate::__xml_test_suites;
 use crate::schema::SCHEMA_MAIN;
@@ -30,10 +30,10 @@ use crate::schema::SCHEMA_MAIN;
 /// The root element of the main document part.
 #[derive(Debug, Default, XmlRead)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:document")]
+#[xml(tag = "document")]
 pub struct Document<'a> {
     /// Specifies the body of the docment.
-    #[xml(child = "w:body")]
+    #[xml(child = "body")]
     pub body: Body<'a>,
 }
 
@@ -70,7 +70,7 @@ __xml_test_suites!(
     Document,
     Document::default(),
     format!(
-        r#"<w:document xmlns:w="{}"><w:body/></w:document>"#,
+        r#"<w:document xmlns:w="{}"><body/></w:document>"#,
         SCHEMA_MAIN
     )
     .as_str(),

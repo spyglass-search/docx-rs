@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -20,13 +20,13 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tbl")]
+#[xml(tag = "tbl")]
 pub struct Table<'a> {
-    #[xml(default, child = "w:tblPr")]
+    #[xml(default, child = "tblPr")]
     pub property: TableProperty<'a>,
-    #[xml(child = "w:tblGrid")]
+    #[xml(child = "tblGrid")]
     pub grids: Vec<TableGrid>,
-    #[xml(child = "w:tr")]
+    #[xml(child = "tr")]
     pub rows: Vec<TableRow<'a>>,
 }
 
@@ -47,9 +47,9 @@ impl<'a> Table<'a> {
 __xml_test_suites!(
     Table,
     Table::default(),
-    "<w:tbl><w:tblPr/></w:tbl>",
+    "<tbl><tblPr/></tbl>",
     Table::default().push_grid(TableGrid::default()),
-    "<w:tbl><w:tblPr/><w:tblGrid/></w:tbl>",
+    "<tbl><tblPr/><tblGrid/></tbl>",
     Table::default().push_row(TableRow::default()),
-    "<w:tbl><w:tblPr/><w:tr><w:trPr/></w:tr></w:tbl>",
+    "<tbl><tblPr/><tr><trPr/></tr></tbl>",
 );

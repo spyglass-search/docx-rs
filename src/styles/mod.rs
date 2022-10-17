@@ -7,8 +7,8 @@ mod style;
 
 pub use self::{default_style::*, style::*};
 
+use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 use std::io::Write;
-use strong_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 
 use crate::__xml_test_suites;
 use crate::schema::SCHEMA_MAIN;
@@ -26,13 +26,13 @@ use crate::schema::SCHEMA_MAIN;
 /// ```
 #[derive(Debug, Default, XmlRead)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:styles")]
+#[xml(tag = "styles")]
 pub struct Styles<'a> {
     /// Specifies the default set of properties.
-    #[xml(default, child = "w:docDefaults")]
+    #[xml(default, child = "docDefaults")]
     pub default: DefaultStyle<'a>,
     /// Specifies a set of properties.
-    #[xml(child = "w:style")]
+    #[xml(child = "style")]
     pub styles: Vec<Style<'a>>,
 }
 
@@ -42,7 +42,7 @@ impl<'a> XmlWrite for Styles<'a> {
 
         log::debug!("[Styles] Started writing.");
 
-        writer.write_element_start("w:styles")?;
+        writer.write_element_start("styles")?;
 
         writer.write_attribute("xmlns:w", SCHEMA_MAIN)?;
 
@@ -54,7 +54,7 @@ impl<'a> XmlWrite for Styles<'a> {
             ele.to_writer(writer)?;
         }
 
-        writer.write_element_end_close("w:styles")?;
+        writer.write_element_end_close("styles")?;
 
         log::debug!("[Styles] Finished writing.");
 
@@ -82,7 +82,7 @@ __xml_test_suites!(
     Styles,
     Styles::new(),
     format!(
-        r#"<w:styles xmlns:w="{}"><w:docDefaults><w:rPrDefault><w:rPr/></w:rPrDefault><w:pPrDefault><w:pPr/></w:pPrDefault></w:docDefaults></w:styles>"#,
+        r#"<styles xmlns:w="{}"><docDefaults><rPrDefault><rPr/></rPrDefault><pPrDefault><pPr/></pPrDefault></docDefaults></styles>"#,
         SCHEMA_MAIN
     )
     .as_str(),
@@ -91,7 +91,7 @@ __xml_test_suites!(
         ..Default::default()
     },
     format!(
-        r#"<w:styles xmlns:w="{}"><w:docDefaults><w:rPrDefault><w:rPr/></w:rPrDefault><w:pPrDefault><w:pPr/></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:styleId="id"><w:pPr/><w:rPr/></w:style></w:styles>"#,
+        r#"<styles xmlns:w="{}"><docDefaults><rPrDefault><rPr/></rPrDefault><pPrDefault><pPr/></pPrDefault></docDefaults><style type="paragraph" styleId="id"><pPr/><rPr/></style></styles>"#,
         SCHEMA_MAIN
     )
     .as_str(),

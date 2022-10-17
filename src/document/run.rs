@@ -1,6 +1,6 @@
 use derive_more::From;
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -25,14 +25,14 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:r")]
+#[xml(tag = "r")]
 pub struct Run<'a> {
     /// Specifies the properties of a run
     ///
     /// Just as paragraph, a run's properties is applied to all the contents of the run.
-    #[xml(default, child = "w:rPr")]
+    #[xml(default, child = "rPr")]
     pub property: CharacterProperty<'a>,
-    #[xml(child = "w:t", child = "w:br")]
+    #[xml(child = "t", child = "br")]
     /// Specifies the content of a run
     pub content: Vec<RunContent<'a>>,
 }
@@ -77,18 +77,18 @@ impl<'a> Run<'a> {
 #[derive(Debug, From, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
 pub enum RunContent<'a> {
-    #[xml(tag = "w:t")]
+    #[xml(tag = "t")]
     Text(Text<'a>),
-    #[xml(tag = "w:br")]
+    #[xml(tag = "br")]
     Break(Break),
 }
 
 __xml_test_suites!(
     Run,
     Run::default(),
-    r#"<w:r><w:rPr/></w:r>"#,
+    r#"<r><rPr/></r>"#,
     Run::default().push_break(None),
-    r#"<w:r><w:rPr/><w:br/></w:r>"#,
+    r#"<r><rPr/><br/></r>"#,
     Run::default().push_text("text"),
-    r#"<w:r><w:rPr/><w:t>text</w:t></w:r>"#,
+    r#"<r><rPr/><t>text</t></r>"#,
 );

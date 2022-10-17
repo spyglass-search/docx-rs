@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __string_enum, __xml_test_suites,
@@ -21,24 +21,24 @@ use crate::{
 /// ```
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:style")]
+#[xml(tag = "style")]
 pub struct Style<'a> {
     /// Specifies the type of style.
-    #[xml(attr = "w:type")]
+    #[xml(attr = "type")]
     pub ty: StyleType,
     /// Specifies the unique identifier
     ///
     /// This identifier is used throughout the document to apply style in content.
-    #[xml(attr = "w:styleId")]
+    #[xml(attr = "styleId")]
     pub style_id: Cow<'a, str>,
     /// Specifies the primary name
-    #[xml(child = "w:name")]
+    #[xml(child = "name")]
     pub name: Option<StyleName<'a>>,
     /// Specifies a set of paragraph properties
-    #[xml(default, child = "w:pPr")]
+    #[xml(default, child = "pPr")]
     pub paragraph: ParagraphProperty<'a>,
     /// Specifies a set of character properties
-    #[xml(default, child = "w:rPr")]
+    #[xml(default, child = "rPr")]
     pub character: CharacterProperty<'a>,
 }
 
@@ -61,9 +61,9 @@ impl<'a> Style<'a> {
 
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:name")]
+#[xml(tag = "name")]
 pub struct StyleName<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 
@@ -94,11 +94,11 @@ __string_enum! {
 __xml_test_suites!(
     Style,
     Style::new(StyleType::Numbering, "id"),
-    r#"<w:style w:type="numbering" w:styleId="id"><w:pPr/><w:rPr/></w:style>"#,
+    r#"<style type="numbering" styleId="id"><pPr/><rPr/></style>"#,
     Style::new(StyleType::Table, "id").name("name"),
-    r#"<w:style w:type="table" w:styleId="id"><w:name w:val="name"/><w:pPr/><w:rPr/></w:style>"#,
+    r#"<style type="table" styleId="id"><name val="name"/><pPr/><rPr/></style>"#,
     Style::new(StyleType::Paragraph, "id"),
-    r#"<w:style w:type="paragraph" w:styleId="id"><w:pPr/><w:rPr/></w:style>"#,
+    r#"<style type="paragraph" styleId="id"><pPr/><rPr/></style>"#,
     Style::new(StyleType::Character, "id"),
-    r#"<w:style w:type="character" w:styleId="id"><w:pPr/><w:rPr/></w:style>"#,
+    r#"<style type="character" styleId="id"><pPr/><rPr/></style>"#,
 );

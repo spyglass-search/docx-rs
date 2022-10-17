@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 
@@ -12,9 +12,9 @@ use crate::__xml_test_suites;
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:strike")]
+#[xml(tag = "strike")]
 pub struct Strike {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Option<bool>,
 }
 
@@ -27,9 +27,9 @@ impl<T: Into<Option<bool>>> From<T> for Strike {
 __xml_test_suites!(
     Strike,
     Strike::default(),
-    r#"<w:strike/>"#,
+    r#"<strike/>"#,
     Strike::from(false),
-    r#"<w:strike w:val="false"/>"#,
+    r#"<strike val="false"/>"#,
     Strike::from(true),
-    r#"<w:strike w:val="true"/>"#,
+    r#"<strike val="true"/>"#,
 );

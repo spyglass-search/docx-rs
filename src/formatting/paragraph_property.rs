@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -18,19 +18,19 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:pPr")]
+#[xml(tag = "pPr")]
 pub struct ParagraphProperty<'a> {
     /// Specifies the style ID of the paragraph style.
-    #[xml(child = "w:pStyle")]
+    #[xml(child = "pStyle")]
     pub style_id: Option<ParagraphStyleId<'a>>,
     /// Specifies the paragraph alignment.
-    #[xml(child = "w:jc")]
+    #[xml(child = "jc")]
     pub justification: Option<Justification>,
     /// Specifies borders for the paragraph.
-    #[xml(child = "w:pBdr")]
+    #[xml(child = "pBdr")]
     pub border: Option<Borders<'a>>,
     /// Specifies that the paragraph should be numbered.
-    #[xml(child = "w:numPr")]
+    #[xml(child = "numPr")]
     pub numbering: Option<NumberingProperty>,
 }
 
@@ -43,9 +43,9 @@ impl<'a> ParagraphProperty<'a> {
 
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:pStyle")]
+#[xml(tag = "pStyle")]
 pub struct ParagraphStyleId<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 
@@ -61,13 +61,13 @@ use crate::formatting::JustificationVal;
 __xml_test_suites!(
     ParagraphProperty,
     ParagraphProperty::default(),
-    r#"<w:pPr/>"#,
+    r#"<pPr/>"#,
     ParagraphProperty::default().style_id("id"),
-    r#"<w:pPr><w:pStyle w:val="id"/></w:pPr>"#,
+    r#"<pPr><pStyle val="id"/></pPr>"#,
     ParagraphProperty::default().justification(JustificationVal::Start),
-    r#"<w:pPr><w:jc w:val="start"/></w:pPr>"#,
+    r#"<pPr><jc val="start"/></pPr>"#,
     ParagraphProperty::default().border(Borders::default()),
-    r#"<w:pPr><w:pBdr/></w:pPr>"#,
+    r#"<pPr><pBdr/></pPr>"#,
     ParagraphProperty::default().numbering(NumberingProperty::default()),
-    r#"<w:pPr><w:numPr><w:numId w:val="0"/><w:ilvl w:val="0"/></w:numPr></w:pPr>"#,
+    r#"<pPr><numPr><numId val="0"/><ilvl val="0"/></numPr></pPr>"#,
 );

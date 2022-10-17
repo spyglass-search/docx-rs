@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 
@@ -17,9 +17,9 @@ use crate::__xml_test_suites;
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:color")]
+#[xml(tag = "color")]
 pub struct Color<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 
@@ -58,9 +58,9 @@ impl From<(u8, u8, u8)> for Color<'_> {
 __xml_test_suites!(
     Color,
     Color::from("000000"),
-    r#"<w:color w:val="000000"/>"#,
+    r#"<color val="000000"/>"#,
     Color::from(0u32),
-    r#"<w:color w:val="000000"/>"#,
+    r#"<color val="000000"/>"#,
     Color::from((0u8, 0u8, 0u8)),
-    r#"<w:color w:val="000000"/>"#,
+    r#"<color val="000000"/>"#,
 );

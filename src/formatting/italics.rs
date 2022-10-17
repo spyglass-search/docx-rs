@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 
@@ -12,9 +12,9 @@ use crate::__xml_test_suites;
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:i")]
+#[xml(tag = "i")]
 pub struct Italics {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Option<bool>,
 }
 
@@ -27,9 +27,9 @@ impl<T: Into<Option<bool>>> From<T> for Italics {
 __xml_test_suites!(
     Italics,
     Italics::default(),
-    r#"<w:i/>"#,
+    r#"<i/>"#,
     Italics::from(false),
-    r#"<w:i w:val="false"/>"#,
+    r#"<i val="false"/>"#,
     Italics::from(true),
-    r#"<w:i w:val="true"/>"#,
+    r#"<i val="true"/>"#,
 );

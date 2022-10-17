@@ -1,11 +1,11 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:family")]
+#[xml(tag = "family")]
 pub struct Family<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 

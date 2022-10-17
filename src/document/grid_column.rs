@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 
@@ -11,9 +11,9 @@ use crate::__xml_test_suites;
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:gridCol")]
+#[xml(tag = "gridCol")]
 pub struct GridColumn {
-    #[xml(attr = "w:w")]
+    #[xml(attr = "w")]
     pub width: usize,
 }
 
@@ -26,5 +26,5 @@ impl From<usize> for GridColumn {
 __xml_test_suites!(
     GridColumn,
     GridColumn::from(42usize),
-    r#"<w:gridCol w:w="42"/>"#,
+    r#"<gridCol w="42"/>"#,
 );

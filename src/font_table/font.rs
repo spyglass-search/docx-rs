@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -18,15 +18,15 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:font")]
+#[xml(tag = "font")]
 pub struct Font<'a> {
-    #[xml(attr = "w:name")]
+    #[xml(attr = "name")]
     pub name: Cow<'a, str>,
-    #[xml(child = "w:charset")]
+    #[xml(child = "charset")]
     pub charset: Option<Charset<'a>>,
-    #[xml(child = "w:family")]
+    #[xml(child = "family")]
     pub family: Option<Family<'a>>,
-    #[xml(child = "w:pitch")]
+    #[xml(child = "pitch")]
     pub pitch: Option<Pitch<'a>>,
 }
 
@@ -52,11 +52,11 @@ impl<'a, T: Into<Cow<'a, str>>> From<T> for Font<'a> {
 __xml_test_suites!(
     Font,
     Font::new("Arial"),
-    r#"<w:font w:name="Arial"/>"#,
+    r#"<font name="Arial"/>"#,
     Font::new("Arial").charset("00"),
-    r#"<w:font w:name="Arial"><w:charset w:val="00"/></w:font>"#,
+    r#"<font name="Arial"><charset val="00"/></font>"#,
     Font::new("Arial").family("swiss"),
-    r#"<w:font w:name="Arial"><w:family w:val="swiss"/></w:font>"#,
+    r#"<font name="Arial"><family val="swiss"/></font>"#,
     Font::new("Arial").pitch("variable"),
-    r#"<w:font w:name="Arial"><w:pitch w:val="variable"/></w:font>"#,
+    r#"<font name="Arial"><pitch val="variable"/></font>"#,
 );

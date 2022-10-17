@@ -1,6 +1,6 @@
 use std::io::Error as IOError;
 
-use strong_xml::XmlError;
+use hard_xml::XmlError;
 use zip::result::ZipError;
 
 /// Error type of docx-rs

@@ -2,28 +2,28 @@
 //!
 //! The corresponding ZIP item is `/docProps/core.xml`.
 
+use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 use std::borrow::Cow;
 use std::io::Write;
-use strong_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 
 use crate::schema::SCHEMA_CORE;
 
 #[derive(Debug, Default, XmlRead)]
-#[xml(tag = "cp:coreProperties")]
+#[xml(tag = "coreProperties")]
 pub struct Core<'a> {
-    #[xml(flatten_text = "dc:title")]
+    #[xml(flatten_text = "title")]
     pub title: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "dc:subject")]
+    #[xml(flatten_text = "subject")]
     pub subject: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "dc:creator")]
+    #[xml(flatten_text = "creator")]
     pub creator: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "cp:keywords")]
+    #[xml(flatten_text = "keywords")]
     pub keywords: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "dc:description")]
+    #[xml(flatten_text = "description")]
     pub description: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "cp:lastModifiedBy")]
+    #[xml(flatten_text = "lastModifiedBy")]
     pub last_modified_by: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "cp:revision")]
+    #[xml(flatten_text = "revision")]
     pub revision: Option<Cow<'a, str>>,
 }
 
@@ -57,25 +57,25 @@ impl<'a> XmlWrite for Core<'a> {
         } else {
             writer.write_element_end_open()?;
             if let Some(val) = title {
-                writer.write_flatten_text("dc:title", val)?;
+                writer.write_flatten_text("dc:title", val, false)?;
             }
             if let Some(val) = subject {
-                writer.write_flatten_text("dc:subject", val)?;
+                writer.write_flatten_text("dc:subject", val, false)?;
             }
             if let Some(val) = creator {
-                writer.write_flatten_text("dc:creator", val)?;
+                writer.write_flatten_text("dc:creator", val, false)?;
             }
             if let Some(val) = keywords {
-                writer.write_flatten_text("cp:keywords", val)?;
+                writer.write_flatten_text("cp:keywords", val, false)?;
             }
             if let Some(val) = description {
-                writer.write_flatten_text("dc:description", val)?;
+                writer.write_flatten_text("dc:description", val, false)?;
             }
             if let Some(val) = last_modified_by {
-                writer.write_flatten_text("cp:lastModifiedBy", val)?;
+                writer.write_flatten_text("cp:lastModifiedBy", val, false)?;
             }
             if let Some(val) = revision {
-                writer.write_flatten_text("cp:revision", val)?;
+                writer.write_flatten_text("cp:revision", val, false)?;
             }
             writer.write_element_end_close("cp:coreProperties")?;
         }

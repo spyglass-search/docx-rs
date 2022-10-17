@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -7,11 +7,11 @@ use crate::{
 
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tblBorders")]
+#[xml(tag = "tblBorders")]
 pub struct TableBorders<'a> {
-    #[xml(child = "w:top")]
+    #[xml(child = "top")]
     pub top: Option<TopBorder<'a>>,
-    #[xml(child = "w:bottom")]
+    #[xml(child = "bottom")]
     pub bottom: Option<BottomBorder<'a>>,
 }
 
@@ -23,9 +23,9 @@ impl<'a> TableBorders<'a> {
 __xml_test_suites!(
     TableBorders,
     TableBorders::default(),
-    r#"<w:tblBorders/>"#,
+    r#"<tblBorders/>"#,
     TableBorders::default().top(TopBorder::default()),
-    r#"<w:tblBorders><w:top/></w:tblBorders>"#,
+    r#"<tblBorders><top/></tblBorders>"#,
     TableBorders::default().bottom(BottomBorder::default()),
-    r#"<w:tblBorders><w:bottom/></w:tblBorders>"#,
+    r#"<tblBorders><bottom/></tblBorders>"#,
 );

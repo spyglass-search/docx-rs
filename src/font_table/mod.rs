@@ -9,8 +9,8 @@ mod pitch;
 
 pub use self::{charset::*, family::*, font::*, pitch::*};
 
+use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 use std::io::Write;
-use strong_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 
 use crate::__xml_test_suites;
 use crate::schema::{SCHEMA_MAIN, SCHEMA_RELATIONSHIPS};
@@ -26,9 +26,9 @@ use crate::schema::{SCHEMA_MAIN, SCHEMA_RELATIONSHIPS};
 /// ```
 #[derive(Debug, Default, XmlRead)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:fonts")]
+#[xml(tag = "fonts")]
 pub struct FontTable<'a> {
-    #[xml(child = "w:font")]
+    #[xml(child = "font")]
     pub fonts: Vec<Font<'a>>,
 }
 
@@ -78,7 +78,7 @@ __xml_test_suites!(
         fonts: vec!["Arial".into()]
     },
     format!(
-        r#"<w:fonts xmlns:w="{}" xmlns:r="{}"><w:font w:name="Arial"/></w:fonts>"#,
+        r#"<w:fonts xmlns:w="{}" xmlns:r="{}"><font name="Arial"/></w:fonts>"#,
         SCHEMA_MAIN, SCHEMA_RELATIONSHIPS
     )
     .as_str(),

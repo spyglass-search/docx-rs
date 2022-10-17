@@ -1,21 +1,21 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{__setter, __xml_test_suites, formatting::BorderStyle};
 
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:left")]
+#[xml(tag = "left")]
 pub struct LeftBorder<'a> {
-    #[xml(attr = "w:color")]
+    #[xml(attr = "color")]
     pub color: Option<Cow<'a, str>>,
-    #[xml(attr = "w:shadow")]
+    #[xml(attr = "shadow")]
     pub shadow: Option<bool>,
-    #[xml(attr = "w:space")]
+    #[xml(attr = "space")]
     pub space: Option<usize>,
-    #[xml(attr = "w:sz")]
+    #[xml(attr = "sz")]
     pub size: Option<usize>,
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub style: Option<BorderStyle>,
 }
 
@@ -30,15 +30,15 @@ impl<'a> LeftBorder<'a> {
 __xml_test_suites!(
     LeftBorder,
     LeftBorder::default(),
-    r#"<w:left/>"#,
+    r#"<left/>"#,
     LeftBorder::default().color("000000"),
-    r#"<w:left w:color="000000"/>"#,
+    r#"<left color="000000"/>"#,
     LeftBorder::default().shadow(false),
-    r#"<w:left w:shadow="false"/>"#,
+    r#"<left shadow="false"/>"#,
     LeftBorder::default().space(40usize),
-    r#"<w:left w:space="40"/>"#,
+    r#"<left space="40"/>"#,
     LeftBorder::default().size(20usize),
-    r#"<w:left w:sz="20"/>"#,
+    r#"<left sz="20"/>"#,
     LeftBorder::default().style(BorderStyle::Dotted),
-    r#"<w:left w:val="dotted"/>"#,
+    r#"<left val="dotted"/>"#,
 );

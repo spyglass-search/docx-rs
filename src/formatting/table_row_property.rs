@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__setter, __xml_test_suites, formatting::TableJustification};
 
@@ -12,10 +12,10 @@ use crate::{__setter, __xml_test_suites, formatting::TableJustification};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:trPr")]
+#[xml(tag = "trPr")]
 pub struct TableRowProperty {
     /// Specifies the alignment of the row with respect to the text margins in the section.
-    #[xml(child = "w:jc")]
+    #[xml(child = "jc")]
     pub justification: Option<TableJustification>,
 }
 
@@ -26,7 +26,7 @@ impl TableRowProperty {
 __xml_test_suites!(
     TableRowProperty,
     TableRowProperty::default(),
-    r#"<w:trPr/>"#,
+    r#"<trPr/>"#,
     TableRowProperty::default().justification(crate::formatting::TableJustificationVal::Start),
-    r#"<w:trPr><w:jc w:val="start"/></w:trPr>"#,
+    r#"<trPr><jc val="start"/></trPr>"#,
 );

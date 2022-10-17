@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__setter, __xml_test_suites, document::TableCell, formatting::TableRowProperty};
 
@@ -18,11 +18,11 @@ use crate::{__setter, __xml_test_suites, document::TableCell, formatting::TableR
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tr")]
+#[xml(tag = "tr")]
 pub struct TableRow<'a> {
-    #[xml(default, child = "w:trPr")]
+    #[xml(default, child = "trPr")]
     pub property: TableRowProperty,
-    #[xml(child = "w:tc")]
+    #[xml(child = "tc")]
     pub cells: Vec<TableCell<'a>>,
 }
 
@@ -41,7 +41,7 @@ use crate::document::Paragraph;
 __xml_test_suites!(
     TableRow,
     TableRow::default(),
-    "<w:tr><w:trPr/></w:tr>",
+    "<tr><trPr/></tr>",
     TableRow::default().push_cell(Paragraph::default()),
-    "<w:tr><w:trPr/><w:tc><w:tcPr/><w:p><w:pPr/></w:p></w:tc></w:tr>",
+    "<tr><trPr/><tc><tcPr/><p><pPr/></p></tc></tr>",
 );

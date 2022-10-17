@@ -2,9 +2,9 @@
 //!
 //! The corresponding ZIP item is `/[Content_Types].xml`.
 
+use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 use std::borrow::Cow;
 use std::io::Write;
-use strong_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
 
 use crate::schema::SCHEMA_CONTENT_TYPES;
 

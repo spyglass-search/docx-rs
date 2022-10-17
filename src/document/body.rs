@@ -1,5 +1,5 @@
 use derive_more::From;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 use crate::document::{Paragraph, Table};
@@ -9,10 +9,10 @@ use crate::document::{Paragraph, Table};
 /// This is the main document editing surface.
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:body")]
+#[xml(tag = "body")]
 pub struct Body<'a> {
     /// Specifies the contents of the body of the document.
-    #[xml(child = "w:p", child = "w:tbl")]
+    #[xml(child = "p", child = "tbl")]
     pub content: Vec<BodyContent<'a>>,
 }
 
@@ -45,9 +45,9 @@ impl<'a> Body<'a> {
 #[derive(Debug, From, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
 pub enum BodyContent<'a> {
-    #[xml(tag = "w:p")]
+    #[xml(tag = "p")]
     Paragraph(Paragraph<'a>),
-    #[xml(tag = "w:tbl")]
+    #[xml(tag = "tbl")]
     Table(Table<'a>),
     // SecProp,
 }
@@ -55,13 +55,13 @@ pub enum BodyContent<'a> {
 __xml_test_suites!(
     Body,
     Body::default(),
-    r#"<w:body/>"#,
+    r#"<body/>"#,
     Body {
         content: vec![Paragraph::default().into()]
     },
-    r#"<w:body><w:p><w:pPr/></w:p></w:body>"#,
+    r#"<body><p><pPr/></p></body>"#,
     Body {
         content: vec![Table::default().into()]
     },
-    r#"<w:body><w:tbl><w:tblPr/></w:tbl></w:body>"#,
+    r#"<body><tbl><tblPr/></tbl></body>"#,
 );

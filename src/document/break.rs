@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__string_enum, __xml_test_suites};
 
@@ -11,7 +11,7 @@ use crate::{__string_enum, __xml_test_suites};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:br")]
+#[xml(tag = "br")]
 pub struct Break {
     /// Specifies the break type of this break.
     #[xml(attr = "type")]
@@ -49,7 +49,7 @@ __string_enum! {
 __xml_test_suites!(
     Break,
     Break::default(),
-    r#"<w:br/>"#,
+    r#"<br/>"#,
     Break::from(BreakType::Page),
-    r#"<w:br type="page"/>"#,
+    r#"<br type="page"/>"#,
 );

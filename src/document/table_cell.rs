@@ -1,5 +1,5 @@
 use derive_more::From;
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__setter, __xml_test_suites, document::Paragraph, formatting::TableCellProperty};
 
@@ -16,11 +16,11 @@ use crate::{__setter, __xml_test_suites, document::Paragraph, formatting::TableC
 /// ```
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tc")]
+#[xml(tag = "tc")]
 pub struct TableCell<'a> {
-    #[xml(default, child = "w:tcPr")]
+    #[xml(default, child = "tcPr")]
     pub property: TableCellProperty,
-    #[xml(child = "w:p")]
+    #[xml(child = "p")]
     pub content: Vec<TableCellContent<'a>>,
 }
 
@@ -47,14 +47,14 @@ impl<'a, T: Into<TableCellContent<'a>>> From<T> for TableCell<'a> {
 #[derive(Debug, From, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
 pub enum TableCellContent<'a> {
-    #[xml(tag = "w:p")]
+    #[xml(tag = "p")]
     Paragraph(Paragraph<'a>),
-    // #[xml(tag = "w:tbl")]
+    // #[xml(tag = "tbl")]
     // Table(Table<'a>),
 }
 
 __xml_test_suites!(
     TableCell,
     TableCell::pargraph(Paragraph::default()),
-    "<w:tc><w:tcPr/><w:p><w:pPr/></w:p></w:tc>",
+    "<tc><tcPr/><p><pPr/></p></tc>",
 );

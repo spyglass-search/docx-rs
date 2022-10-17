@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__string_enum, __xml_test_suites};
 
@@ -13,11 +13,11 @@ use crate::{__string_enum, __xml_test_suites};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tblInd")]
+#[xml(tag = "tblInd")]
 pub struct TableIndent {
-    #[xml(attr = "w:w")]
+    #[xml(attr = "w")]
     pub value: Option<usize>,
-    #[xml(attr = "w:type")]
+    #[xml(attr = "type")]
     pub unit: Option<TableIndentUnit>,
 }
 
@@ -69,11 +69,11 @@ __string_enum! {
 __xml_test_suites!(
     TableIndent,
     TableIndent::default(),
-    "<w:tblInd/>",
+    "<tblInd/>",
     TableIndent::from(42),
-    r#"<w:tblInd w:w="42"/>"#,
+    r#"<tblInd w="42"/>"#,
     TableIndent::from(TableIndentUnit::Pct),
-    r#"<w:tblInd w:type="pct"/>"#,
+    r#"<tblInd type="pct"/>"#,
     TableIndent::from((42, TableIndentUnit::Dxa)),
-    r#"<w:tblInd w:w="42" w:type="dxa"/>"#,
+    r#"<tblInd w="42" type="dxa"/>"#,
 );

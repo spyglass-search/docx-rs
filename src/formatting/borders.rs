@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -8,17 +8,17 @@ use crate::{
 /// Borders
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:pBdr")]
+#[xml(tag = "pBdr")]
 pub struct Borders<'a> {
-    #[xml(child = "w:top")]
+    #[xml(child = "top")]
     pub top: Option<TopBorder<'a>>,
-    #[xml(child = "w:bottom")]
+    #[xml(child = "bottom")]
     pub bottom: Option<BottomBorder<'a>>,
-    #[xml(child = "w:left")]
+    #[xml(child = "left")]
     pub left: Option<LeftBorder<'a>>,
-    #[xml(child = "w:right")]
+    #[xml(child = "right")]
     pub right: Option<RightBorder<'a>>,
-    #[xml(child = "w:between")]
+    #[xml(child = "between")]
     pub between: Option<BetweenBorder<'a>>,
 }
 
@@ -33,15 +33,15 @@ impl<'a> Borders<'a> {
 __xml_test_suites!(
     Borders,
     Borders::default(),
-    r#"<w:pBdr/>"#,
+    r#"<pBdr/>"#,
     Borders::default().top(TopBorder::default()),
-    r#"<w:pBdr><w:top/></w:pBdr>"#,
+    r#"<pBdr><top/></pBdr>"#,
     Borders::default().bottom(BottomBorder::default()),
-    r#"<w:pBdr><w:bottom/></w:pBdr>"#,
+    r#"<pBdr><bottom/></pBdr>"#,
     Borders::default().left(LeftBorder::default()),
-    r#"<w:pBdr><w:left/></w:pBdr>"#,
+    r#"<pBdr><left/></pBdr>"#,
     Borders::default().right(RightBorder::default()),
-    r#"<w:pBdr><w:right/></w:pBdr>"#,
+    r#"<pBdr><right/></pBdr>"#,
     Borders::default().between(BetweenBorder::default()),
-    r#"<w:pBdr><w:between/></w:pBdr>"#,
+    r#"<pBdr><between/></pBdr>"#,
 );

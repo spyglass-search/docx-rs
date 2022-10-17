@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -27,34 +27,34 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:rPr")]
+#[xml(tag = "rPr")]
 pub struct CharacterProperty<'a> {
     /// Specifies the style ID of the character style.
-    #[xml(child = "w:rStyle")]
+    #[xml(child = "rStyle")]
     pub style_id: Option<CharacterStyleId<'a>>,
     /// Specifies the color to be used to display text.
-    #[xml(child = "w:color")]
+    #[xml(child = "color")]
     pub color: Option<Color<'a>>,
     /// Specifies the font size in half points.
-    #[xml(child = "w:sz")]
+    #[xml(child = "sz")]
     pub size: Option<Size>,
     /// Specifies that the text of the text run is to be bold.
-    #[xml(child = "w:b")]
+    #[xml(child = "b")]
     pub bold: Option<Bold>,
     /// Specifies that the text of the text run is to be italics.
-    #[xml(child = "w:i")]
+    #[xml(child = "i")]
     pub italics: Option<Italics>,
     /// Specifies that the contents are to be displayed with a horizontal line through the center of the line.
-    #[xml(child = "w:strike")]
+    #[xml(child = "strike")]
     pub strike: Option<Strike>,
     /// Specifies that the contents are to be displayed with two horizontal lines through each character.
-    #[xml(child = "w:dstrike")]
+    #[xml(child = "dstrike")]
     pub dstrike: Option<Dstrike>,
     /// Specifies that the content should be displayed as if it had an outline.
-    #[xml(child = "w:outline")]
+    #[xml(child = "outline")]
     pub outline: Option<Outline>,
     /// Specifies that the content should be displayed with an underline
-    #[xml(child = "w:u")]
+    #[xml(child = "u")]
     pub underline: Option<Underline<'a>>,
 }
 
@@ -72,9 +72,9 @@ impl<'a> CharacterProperty<'a> {
 
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:rStyle")]
+#[xml(tag = "rStyle")]
 pub struct CharacterStyleId<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 
@@ -87,23 +87,23 @@ impl<'a, T: Into<Cow<'a, str>>> From<T> for CharacterStyleId<'a> {
 __xml_test_suites!(
     CharacterProperty,
     CharacterProperty::default(),
-    r#"<w:rPr/>"#,
+    r#"<rPr/>"#,
     CharacterProperty::default().style_id("id"),
-    r#"<w:rPr><w:rStyle w:val="id"/></w:rPr>"#,
+    r#"<rPr><rStyle val="id"/></rPr>"#,
     CharacterProperty::default().color("00ff00"),
-    r#"<w:rPr><w:color w:val="00ff00"/></w:rPr>"#,
+    r#"<rPr><color val="00ff00"/></rPr>"#,
     CharacterProperty::default().size(42usize),
-    r#"<w:rPr><w:sz w:val="42"/></w:rPr>"#,
+    r#"<rPr><sz val="42"/></rPr>"#,
     CharacterProperty::default().bold(true),
-    r#"<w:rPr><w:b w:val="true"/></w:rPr>"#,
+    r#"<rPr><b val="true"/></rPr>"#,
     CharacterProperty::default().italics(false),
-    r#"<w:rPr><w:i w:val="false"/></w:rPr>"#,
+    r#"<rPr><i val="false"/></rPr>"#,
     CharacterProperty::default().outline(true),
-    r#"<w:rPr><w:outline w:val="true"/></w:rPr>"#,
+    r#"<rPr><outline val="true"/></rPr>"#,
     CharacterProperty::default().strike(false),
-    r#"<w:rPr><w:strike w:val="false"/></w:rPr>"#,
+    r#"<rPr><strike val="false"/></rPr>"#,
     CharacterProperty::default().dstrike(true),
-    r#"<w:rPr><w:dstrike w:val="true"/></w:rPr>"#,
+    r#"<rPr><dstrike val="true"/></rPr>"#,
     CharacterProperty::default().underline(Underline::default()),
-    r#"<w:rPr><w:u/></w:rPr>"#,
+    r#"<rPr><u/></rPr>"#,
 );

@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 use crate::document::GridColumn;
@@ -16,9 +16,9 @@ use crate::document::GridColumn;
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tblGrid")]
+#[xml(tag = "tblGrid")]
 pub struct TableGrid {
-    #[xml(child = "w:gridCol")]
+    #[xml(child = "gridCol")]
     pub columns: Vec<GridColumn>,
 }
 
@@ -40,11 +40,11 @@ impl From<Vec<usize>> for TableGrid {
 __xml_test_suites!(
     TableGrid,
     TableGrid::default(),
-    "<w:tblGrid/>",
+    "<tblGrid/>",
     TableGrid::default().push_column(42),
-    r#"<w:tblGrid><w:gridCol w:w="42"/></w:tblGrid>"#,
+    r#"<tblGrid><gridCol w="42"/></tblGrid>"#,
     TableGrid::default().push_column(42).push_column(42),
-    r#"<w:tblGrid><w:gridCol w:w="42"/><w:gridCol w:w="42"/></w:tblGrid>"#,
+    r#"<tblGrid><gridCol w="42"/><gridCol w="42"/></tblGrid>"#,
     TableGrid::from(vec![42, 42]),
-    r#"<w:tblGrid><w:gridCol w:w="42"/><w:gridCol w:w="42"/></w:tblGrid>"#,
+    r#"<tblGrid><gridCol w="42"/><gridCol w="42"/></tblGrid>"#,
 );

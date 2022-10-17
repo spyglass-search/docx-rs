@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{
     __setter, __xml_test_suites,
@@ -19,17 +19,17 @@ use crate::{
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tblPr")]
+#[xml(tag = "tblPr")]
 pub struct TableProperty<'a> {
-    #[xml(child = "w:tblStyle")]
+    #[xml(child = "tblStyle")]
     pub style_id: Option<TableStyleId<'a>>,
-    #[xml(child = "w:jc")]
+    #[xml(child = "jc")]
     pub justification: Option<TableJustification>,
-    #[xml(child = "w:tblBorders")]
+    #[xml(child = "tblBorders")]
     pub borders: Option<TableBorders<'a>>,
-    #[xml(child = "w:tblInd")]
+    #[xml(child = "tblInd")]
     pub indent: Option<TableIndent>,
-    #[xml(child = "w:tblW")]
+    #[xml(child = "tblW")]
     pub width: Option<TableWidth>,
 }
 
@@ -43,9 +43,9 @@ impl<'a> TableProperty<'a> {
 
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:tblStyle")]
+#[xml(tag = "tblStyle")]
 pub struct TableStyleId<'a> {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Cow<'a, str>,
 }
 
@@ -58,15 +58,15 @@ impl<'a, T: Into<Cow<'a, str>>> From<T> for TableStyleId<'a> {
 __xml_test_suites!(
     TableProperty,
     TableProperty::default(),
-    r#"<w:tblPr/>"#,
+    r#"<tblPr/>"#,
     TableProperty::default().style_id("id"),
-    r#"<w:tblPr><w:tblStyle w:val="id"/></w:tblPr>"#,
+    r#"<tblPr><tblStyle val="id"/></tblPr>"#,
     TableProperty::default().justification(crate::formatting::TableJustificationVal::Start),
-    r#"<w:tblPr><w:jc w:val="start"/></w:tblPr>"#,
+    r#"<tblPr><jc val="start"/></tblPr>"#,
     TableProperty::default().borders(TableBorders::default()),
-    r#"<w:tblPr><w:tblBorders/></w:tblPr>"#,
+    r#"<tblPr><tblBorders/></tblPr>"#,
     TableProperty::default().indent(TableIndent::default()),
-    r#"<w:tblPr><w:tblInd/></w:tblPr>"#,
+    r#"<tblPr><tblInd/></tblPr>"#,
     TableProperty::default().width(TableWidth::default()),
-    r#"<w:tblPr><w:tblW/></w:tblPr>"#,
+    r#"<tblPr><tblW/></tblPr>"#,
 );

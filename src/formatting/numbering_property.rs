@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 use crate::formatting::{IndentLevel, NumberingId};
@@ -12,13 +12,13 @@ use crate::formatting::{IndentLevel, NumberingId};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:numPr")]
+#[xml(tag = "numPr")]
 pub struct NumberingProperty {
     /// Specifies a reference to a numbering definition instance
-    #[xml(child = "w:numId")]
+    #[xml(child = "numId")]
     pub id: NumberingId,
     /// Specifies the numbering level of the numbering definition to use for the paragraph.
-    #[xml(child = "w:ilvl")]
+    #[xml(child = "ilvl")]
     pub level: IndentLevel,
 }
 
@@ -34,7 +34,7 @@ impl From<(usize, usize)> for NumberingProperty {
 __xml_test_suites!(
     NumberingProperty,
     NumberingProperty::default(),
-    r#"<w:numPr><w:numId w:val="0"/><w:ilvl w:val="0"/></w:numPr>"#,
+    r#"<numPr><numId val="0"/><ilvl val="0"/></numPr>"#,
     NumberingProperty::from((20, 40)),
-    r#"<w:numPr><w:numId w:val="20"/><w:ilvl w:val="40"/></w:numPr>"#,
+    r#"<numPr><numId val="20"/><ilvl val="40"/></numPr>"#,
 );

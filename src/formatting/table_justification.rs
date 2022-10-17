@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::{__string_enum, __xml_test_suites};
 
@@ -11,9 +11,9 @@ use crate::{__string_enum, __xml_test_suites};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:jc")]
+#[xml(tag = "jc")]
 pub struct TableJustification {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: Option<TableJustificationVal>,
 }
 
@@ -42,7 +42,7 @@ __string_enum! {
 __xml_test_suites!(
     TableJustification,
     TableJustification::default(),
-    "<w:jc/>",
+    "<jc/>",
     TableJustification::from(TableJustificationVal::Start),
-    r#"<w:jc w:val="start"/>"#,
+    r#"<jc val="start"/>"#,
 );

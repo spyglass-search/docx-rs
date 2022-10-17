@@ -1,5 +1,5 @@
+use hard_xml::{XmlRead, XmlWrite};
 use std::borrow::Cow;
-use strong_xml::{XmlRead, XmlWrite};
 
 use crate::{__string_enum, __xml_test_suites};
 
@@ -16,10 +16,10 @@ use crate::{__string_enum, __xml_test_suites};
 /// ```
 #[derive(Debug, Default, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:t")]
+#[xml(tag = "t")]
 pub struct Text<'a> {
     /// Specifies how to handle whitespace
-    #[xml(attr = "xml:space")]
+    #[xml(attr = "space")]
     pub space: Option<TextSpace>,
     /// Specifies a literal text
     #[xml(text)]
@@ -84,11 +84,11 @@ __string_enum! {
 __xml_test_suites!(
     Text,
     Text::from("text"),
-    "<w:t>text</w:t>",
+    "<t>text</t>",
     Text::from(String::from("text")),
-    "<w:t>text</w:t>",
+    "<t>text</t>",
     Text::from(("text", TextSpace::Preserve)),
-    r#"<w:t xml:space="preserve">text</w:t>"#,
+    r#"<t space="preserve">text</t>"#,
     Text::from((String::from("text"), TextSpace::Default)),
-    r#"<w:t xml:space="default">text</w:t>"#,
+    r#"<t space="default">text</t>"#,
 );

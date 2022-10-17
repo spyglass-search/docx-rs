@@ -1,4 +1,4 @@
-use strong_xml::{XmlRead, XmlWrite};
+use hard_xml::{XmlRead, XmlWrite};
 
 use crate::__xml_test_suites;
 
@@ -11,9 +11,9 @@ use crate::__xml_test_suites;
 /// ```
 #[derive(Debug, XmlRead, XmlWrite)]
 #[cfg_attr(test, derive(PartialEq))]
-#[xml(tag = "w:sz")]
+#[xml(tag = "sz")]
 pub struct Size {
-    #[xml(attr = "w:val")]
+    #[xml(attr = "val")]
     pub value: usize,
 }
 
@@ -23,4 +23,4 @@ impl<T: Into<usize>> From<T> for Size {
     }
 }
 
-__xml_test_suites!(Size, Size::from(42usize), r#"<w:sz w:val="42"/>"#,);
+__xml_test_suites!(Size, Size::from(42usize), r#"<sz val="42"/>"#,);
